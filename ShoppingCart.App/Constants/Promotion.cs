@@ -1,8 +1,8 @@
 namespace ShoppingCart.App.Constants
 {
-    public class PromotionalCodes
+    public static class Promotion
     {
-        public enum Codes
+        public enum Codes : int
         {
             NONE = 0,
             X_FOR_Y,
