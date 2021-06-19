@@ -1,7 +1,7 @@
 using System;
 using Xunit;
-
 using ShoppingCart.App.Models;
+using ShoppingCart.App.Controllers;
 
 namespace ShoppingCart.UnitTests
 {
@@ -49,7 +49,7 @@ namespace ShoppingCart.UnitTests
             /// <when />
 
             /// <then />
-            var result = entry.GetCost(entry);
+            var result = CartEntryController.GetCost(entry);
             Assert.Equal(expected, result);
         }
 
@@ -73,13 +73,14 @@ namespace ShoppingCart.UnitTests
                 {
                     UnitPrice = unitPrice
                 },
-                Quantity = quantity
+                Quantity = quantity,
+                PromotionCode = promotionCode
             };
 
             /// <when />
 
             /// <then />
-            var result = entry.GetCost(entry);
+            var result = CartEntryController.GetCost(entry);
             Assert.Equal(expected, result);
         }
     }
