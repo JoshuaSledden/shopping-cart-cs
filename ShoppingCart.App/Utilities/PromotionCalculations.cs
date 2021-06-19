@@ -7,14 +7,30 @@ using ShoppingCart.App.Models;
 
 namespace ShoppingCart.App.Utilities
 {
+    /// <summary>
+    /// A static class that holds promotion calculation operations.
+    /// </summary>
     public static class PromotionCalculations
     {
+        /// <summary>
+        /// Gets the total cost of a series of products within a cart entry based on the X items for Y Cost promotion.
+        /// </summary>
+        /// <param name="entry">An object representing a card entry.</param>
+        /// <param name="promotion">An object representing a promotion type object.</param>
+        /// <returns>A float value representing the overall cost of this cart entry after promotion.</returns>
         public static float GetFixedCostPromotionCost(CartEntry entry, Promotion promotion)
         {
             var promotionsApplied = (promotion.AppliedQuantity == 0) ? 0 : entry.Quantity / promotion.AppliedQuantity;
             var remainingQuantity = entry.Quantity % promotion.AppliedQuantity;
             return (promotion.AppliedValue * promotionsApplied) + (entry.Product.UnitPrice * remainingQuantity);
         }
+
+        /// <summary>
+        /// Gets the total cost of a series of products within a cart entry based on the X Percent off for every Y Items promotion.
+        /// </summary>
+        /// <param name="entry">An object representing a card entry.</param>
+        /// <param name="promotion">An object representing a promotion type object.</param>
+        /// <returns>A float value representing the overall cost of this cart entry after promotion.</returns>
         public static float GetPercentOffPromotionCost(CartEntry entry, Promotion promotion)
         {
             var promotionFactor = (1.0f - (promotion.AppliedValue * 0.01f));
