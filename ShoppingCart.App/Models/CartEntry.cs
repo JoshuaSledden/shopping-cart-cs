@@ -13,11 +13,6 @@ namespace ShoppingCart.App.Models
         /// <summary>
         /// Gets or sets the quantity of products within this cart entry.
         /// </summary>
-        public int Quantity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the promotional code used when calculating the overall cost of this cart entry.
-        /// </summary>
-        public int PromotionCode { get; set; }
+        public int Quantity { get; set; } = 1;
     }
 }
