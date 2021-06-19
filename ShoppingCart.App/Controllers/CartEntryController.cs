@@ -1,5 +1,6 @@
 using ShoppingCart.App.Models;
 using ShoppingCart.App.Constants;
+using ShoppingCart.App.Utilities;
 
 namespace ShoppingCart.App.Controllers
 {
@@ -8,6 +9,11 @@ namespace ShoppingCart.App.Controllers
     /// </summary>
     public static class CartEntryController
     {
+        /// <summary>
+        /// Get the cost of an entry within a cart.
+        /// </summary>
+        /// <param name="entry">A card entry object that consists of a product (with or without a promotion) and a quantity of said product.</param>
+        /// <returns></returns>
         public static float GetCost(CartEntry entry)
         {
             var promotion = entry.Product.Promotion;
@@ -17,13 +23,9 @@ namespace ShoppingCart.App.Controllers
                 switch (promotion.Code)
                 {
                     case (int)PromotionCodes.Types.X_ITEMS_FOR_Y_COST:
-                        {
-                            var promotionAmounts = (promotion.AppliedQuantity == 0) ? 0 : entry.Quantity / promotion.AppliedQuantity;
-                            var remainingQuantity = entry.Quantity % promotion.AppliedQuantity;
-                            return (promotion.AppliedValue * promotionAmounts) + (entry.Product.UnitPrice * remainingQuantity);
-                        }
+                        return PromotionCalculations.GetFixedCostPromotionCost(entry, promotion);
                     case (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS:
-                        return 1.0f;
+                        return PromotionCalculations.GetPercentOffPromotionCost(entry, promotion);
                     case (int)PromotionCodes.Types.NONE:
                     default:
                         break;
