@@ -24,6 +24,6 @@ namespace ShoppingCart.App.Models
         /// <summary>
         /// Gets or sets the promotional value.
         /// </summary>
-        public float AppliedValue { get; set; }
+        public decimal AppliedValue { get; set; }
     }
 }

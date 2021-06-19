@@ -109,7 +109,7 @@ namespace ShoppingCart.UnitTests
 
             /// <then />
             var resultCost = CartController.GetTotalCost(cart);
-            Assert.Equal(40.0f, resultCost);
+            Assert.Equal(40.0M, resultCost);
         }
     }
 }

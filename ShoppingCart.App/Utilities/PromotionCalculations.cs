@@ -17,8 +17,8 @@ namespace ShoppingCart.App.Utilities
         /// </summary>
         /// <param name="entry">An object representing a card entry.</param>
         /// <param name="promotion">An object representing a promotion type object.</param>
-        /// <returns>A float value representing the overall cost of this cart entry after promotion.</returns>
-        public static float GetFixedCostPromotionCost(CartEntry entry, Promotion promotion)
+        /// <returns>A decimal value representing the overall cost of this cart entry after promotion.</returns>
+        public static decimal GetFixedCostPromotionCost(CartEntry entry, Promotion promotion)
         {
             var promotionsApplied = (promotion.AppliedQuantity == 0) ? 0 : entry.Quantity / promotion.AppliedQuantity;
             var remainingQuantity = entry.Quantity % promotion.AppliedQuantity;
@@ -30,14 +30,14 @@ namespace ShoppingCart.App.Utilities
         /// </summary>
         /// <param name="entry">An object representing a card entry.</param>
         /// <param name="promotion">An object representing a promotion type object.</param>
-        /// <returns>A float value representing the overall cost of this cart entry after promotion.</returns>
-        public static float GetPercentOffPromotionCost(CartEntry entry, Promotion promotion)
+        /// <returns>A decimal value representing the overall cost of this cart entry after promotion.</returns>
+        public static decimal GetPercentOffPromotionCost(CartEntry entry, Promotion promotion)
         {
-            var promotionFactor = (1.0f - (promotion.AppliedValue * 0.01f));
+            var promotionFactor = (1.0M - (promotion.AppliedValue * 0.01M));
             var promotionsApplied = (promotion.AppliedQuantity == 0) ? 0 : entry.Quantity / promotion.AppliedQuantity;
             var remainingQuantity = entry.Quantity % promotion.AppliedQuantity;
 
-            var totalPromotionCost = 0.0f;
+            var totalPromotionCost = 0.0M;
             for (int i = 0; i < promotionsApplied; i++)
             {
                 totalPromotionCost += (entry.Product.UnitPrice * promotion.AppliedQuantity) * promotionFactor;

@@ -13,8 +13,8 @@ namespace ShoppingCart.App.Controllers
         /// Get the cost of an entry within a cart.
         /// </summary>
         /// <param name="entry">A card entry object that consists of a product (with or without a promotion) and a quantity of said product.</param>
-        /// <returns></returns>
-        public static float GetCost(CartEntry entry)
+        /// <returns>A decimal representing the complete cost of the products with the given quantity after any promotions.</returns>
+        public static decimal GetCost(CartEntry entry)
         {
             var promotion = entry.Product.Promotion;
 

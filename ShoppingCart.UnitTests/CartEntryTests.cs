@@ -65,7 +65,7 @@ namespace ShoppingCart.UnitTests
         [InlineData(55, 3, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 137.5)]
         [InlineData(55, 4, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 165)]
         [InlineData(55, 5, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 220)]
-        public void GetCostWithPromotion(int unitPrice, int quantity, int promotionCode, int appliedQuantity, int appliedValue, float expected)
+        public void GetCostWithPromotion(int unitPrice, int quantity, int promotionCode, int appliedQuantity, int appliedValue, decimal expected)
         {
             /// <given />
             Promotion promotion = new Promotion
