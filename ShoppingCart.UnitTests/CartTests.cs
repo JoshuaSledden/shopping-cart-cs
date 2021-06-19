@@ -18,17 +18,17 @@ namespace ShoppingCart.UnitTests
                 UnitPrice = 10
             };
 
-            CartEntry entry = new CartEntry
+            CartEntry cartEntry = new CartEntry
             {
                 Product = product,
                 Quantity = 1
             };
 
             /// <when />
-            cart.AddItem(entry);
+            CartController.AddEntry(cart, cartEntry);
 
             /// <then />
-            var result = cart.GetCount();
+            var result = cart.CartEntries.Count;
             Assert.Equal(1, result);
         }
 
@@ -60,17 +60,17 @@ namespace ShoppingCart.UnitTests
                 Quantity = 1
             };
 
-            cart.AddItem(entry1);
-            cart.AddItem(entry2);
+            CartController.AddEntry(cart, entry1);
+            CartController.AddEntry(cart, entry2);
 
             /// <when />
-            cart.RemoveItem(entry1);
+            CartController.RemoveEntry(cart, entry1);
 
             /// <then />
-            var resultCount = cart.GetEntryCount();
-            var resultEntry = cart.GetEntryByIndex();
+            var resultCount = cart.CartEntries.Count;
+            var resultEntry = cart.CartEntries[0];
             Assert.Equal(1, resultCount);
-            Assert.Equal(resultEntry.Product.SKU, "B");
+            Assert.Equal("B", resultEntry.Product.StockKeepingUnit);
         }
 
         [Fact]
@@ -102,12 +102,12 @@ namespace ShoppingCart.UnitTests
             };
 
             /// <when />
-            cart.AddItem(entry1);
-            cart.AddItem(entry2);
+            CartController.AddEntry(cart, entry1);
+            CartController.AddEntry(cart, entry2);
 
             /// <then />
-            var resultCost = cart.GetTotalCost();
-            Assert.Equal(40, resultCost);
+            var resultCost = CartController.GetTotalCost(cart);
+            Assert.Equal(40.0f, resultCost);
         }
     }
 }
