@@ -1,4 +1,5 @@
 using ShoppingCart.App.Models;
+using System.Linq;
 
 namespace ShoppingCart.App.Controllers
 {
@@ -31,10 +32,10 @@ namespace ShoppingCart.App.Controllers
         /// Gets the total cost value of all items within a cart.
         /// </summary>
         /// <param name="cart">An object representing a cart.</param>
-        /// <returns></returns>
+        /// <returns>A float representing a total of all cart entries within the cart.</returns>
         public static float GetTotalCost(Cart cart)
         {
-            return 1.0f;
+            return cart.CartEntries.Select(entry => CartEntryController.GetCost(entry)).Sum();
         }
     }
 }
