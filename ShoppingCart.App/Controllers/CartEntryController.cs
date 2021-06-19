@@ -10,16 +10,27 @@ namespace ShoppingCart.App.Controllers
     {
         public static float GetCost(CartEntry entry)
         {
-            switch(entry.PromotionCode)
+            var promotion = entry.Product.Promotion;
+
+            if(promotion != null)
             {
-                case (int)Promotion.Codes.X_FOR_Y:
-                    return 1.0f;
-                case (int)Promotion.Codes.X_PERCENT_OFF_EVERY_Y:
-                    return 1.0f;
-                case (int)Promotion.Codes.NONE:
-                default:
-                    return entry.Product.UnitPrice * entry.Quantity;
+                switch (promotion.Code)
+                {
+                    case (int)PromotionCodes.Types.X_ITEMS_FOR_Y_COST:
+                        {
+                            var promotionAmounts = (promotion.AppliedQuantity == 0) ? 0 : entry.Quantity / promotion.AppliedQuantity;
+                            var remainingQuantity = entry.Quantity % promotion.AppliedQuantity;
+                            return (promotion.AppliedValue * promotionAmounts) + (entry.Product.UnitPrice * remainingQuantity);
+                        }
+                    case (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS:
+                        return 1.0f;
+                    case (int)PromotionCodes.Types.NONE:
+                    default:
+                        break;
+                }
             }
+
+            return entry.Product.UnitPrice * entry.Quantity;
         }
     }
 }

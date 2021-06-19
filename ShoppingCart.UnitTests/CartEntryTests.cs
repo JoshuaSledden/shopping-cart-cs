@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using ShoppingCart.App.Models;
 using ShoppingCart.App.Controllers;
+using ShoppingCart.App.Constants;
 
 namespace ShoppingCart.UnitTests
 {
@@ -54,27 +55,34 @@ namespace ShoppingCart.UnitTests
         }
 
         [Theory]
-        [InlineData(10, 1, 0, 10)]
-        [InlineData(15, 3, 1, 40)]
-        [InlineData(15, 4, 1, 55)]
-        [InlineData(15, 6, 1, 80)]
-        [InlineData(15, 8, 1, 110)]
-        [InlineData(55, 1, 2, 55)]
-        [InlineData(55, 2, 2, 82.5)]
-        [InlineData(55, 3, 2, 137.5)]
-        [InlineData(55, 4, 2, 165)]
-        [InlineData(55, 5, 2, 220)]
-        public void GetCostWithPromotion(int unitPrice, int quantity, int promotionCode, int expected)
+        [InlineData(10, 1, (int)PromotionCodes.Types.NONE, 0, 0, 10)]
+        [InlineData(15, 3, (int)PromotionCodes.Types.X_ITEMS_FOR_Y_COST, 3, 40, 40)]
+        [InlineData(15, 4, (int)PromotionCodes.Types.X_ITEMS_FOR_Y_COST, 3, 40, 55)]
+        [InlineData(15, 6, (int)PromotionCodes.Types.X_ITEMS_FOR_Y_COST, 3, 40, 80)]
+        [InlineData(15, 8, (int)PromotionCodes.Types.X_ITEMS_FOR_Y_COST, 3, 40, 110)]
+        [InlineData(55, 1, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 55)]
+        [InlineData(55, 2, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 82.5)]
+        [InlineData(55, 3, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 137.5)]
+        [InlineData(55, 4, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 165)]
+        [InlineData(55, 5, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 220)]
+        public void GetCostWithPromotion(int unitPrice, int quantity, int promotionCode, int appliedQuantity, int appliedValue, int expected)
         {
             /// <given />
+            Promotion promotion = new Promotion
+            {
+                Code = promotionCode,
+                AppliedQuantity = appliedQuantity,
+                AppliedValue = appliedValue
+            };
+
             CartEntry entry = new CartEntry
             {
                 Product = new Product
                 {
-                    UnitPrice = unitPrice
+                    UnitPrice = unitPrice,
+                    Promotion = promotion
                 },
-                Quantity = quantity,
-                PromotionCode = promotionCode
+                Quantity = quantity
             };
 
             /// <when />
