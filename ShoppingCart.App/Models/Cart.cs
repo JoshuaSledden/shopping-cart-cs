@@ -10,6 +10,6 @@ namespace ShoppingCart.App.Models
         /// <summary>
         /// Gets or sets a collection of cart entry objects.
         /// </summary>
-        public List<CartEntry> CartEntries;
+        public List<CartEntry> CartEntries = new List<CartEntry>();
     }
 }

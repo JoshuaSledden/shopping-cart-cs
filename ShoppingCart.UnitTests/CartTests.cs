@@ -40,11 +40,13 @@ namespace ShoppingCart.UnitTests
 
             Product product1 = new Product
             {
+                StockKeepingUnit = "A",
                 UnitPrice = 10
             };
 
             Product product2 = new Product
             {
+                StockKeepingUnit = "B",
                 UnitPrice = 15
             };
 
