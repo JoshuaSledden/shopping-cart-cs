@@ -1,0 +1,32 @@
+[
+    {
+        "SKU": "A",
+        "UnitPrice": 10
+    },
+    {
+        "SKU": "B",
+        "UnitPrice": 15,
+        "Promotions": [
+            {
+                "PromotionCode": "X_FOR_Y",
+                "Count": 3,
+                "Value": 40
+            }
+        ]
+    },
+    {
+        "SKU": "C",
+        "UnitPrice": 40
+    },
+    {
+        "SKU": "D",
+        "UnitPrice": 55,
+        "Promotions": [
+            {
+                "PromotionCode": "X_PERCENT_OFF_EVERY_Y",
+                "Count": 2,
+                "Value": 25
+            }
+        ]
+    }
+]
