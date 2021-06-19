@@ -16,8 +16,8 @@ namespace ShoppingCart.App.Models
         public int UnitPrice;
 
         /// <summary>
-        /// Gets or sets the Promotion Code.
+        /// Gets or sets the Promotion object.
         /// </summary>
-        public int PromotionCode;
+        public Promotion Promotion;
     }
 }
