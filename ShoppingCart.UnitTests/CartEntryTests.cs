@@ -25,7 +25,7 @@ namespace ShoppingCart.UnitTests
             entry.Quantity = 3;
 
             /// <then />
-            var result = entry.Quantity;
+            int result = entry.Quantity;
             Assert.Equal(3, result);
         }
 
@@ -50,7 +50,7 @@ namespace ShoppingCart.UnitTests
             /// <when />
 
             /// <then />
-            var result = CartEntryController.GetCost(entry);
+            decimal result = CartEntryController.GetCost(entry);
             Assert.Equal(expected, result);
         }
 
@@ -88,7 +88,7 @@ namespace ShoppingCart.UnitTests
             /// <when />
 
             /// <then />
-            var result = CartEntryController.GetCost(entry);
+            decimal result = CartEntryController.GetCost(entry);
             Assert.Equal(expected, result);
         }
     }

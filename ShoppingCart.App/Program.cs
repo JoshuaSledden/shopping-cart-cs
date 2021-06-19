@@ -28,17 +28,17 @@ namespace ShoppingCart.App
 
             while (true)
             {
-                var command = Console.ReadLine();
+                string command = Console.ReadLine();
                 if(command.ToString().ToLower() == "add")
                 {
                     Console.WriteLine("Enter a product SKU: ");
-                    var stockKeepingUnit = Console.ReadLine();
+                    string stockKeepingUnit = Console.ReadLine();
 
-                    var product = products.Find(x => x.StockKeepingUnit.ToUpper() == stockKeepingUnit.ToString().ToUpper());
+                    Product product = products.Find(x => x.StockKeepingUnit.ToUpper() == stockKeepingUnit.ToString().ToUpper());
                     if(product != null)
                     {
                         Console.WriteLine("Enter a Quantity: ");
-                        var quantity = Math.Max(1, Convert.ToInt32(Console.ReadLine()));
+                        int quantity = Math.Max(1, Convert.ToInt32(Console.ReadLine()));
 
                         CartEntry cartEntry = new CartEntry
                         {
@@ -57,7 +57,7 @@ namespace ShoppingCart.App
                 else if (command.ToString().ToLower() == "remove")
                 {
                     Console.WriteLine("Select a number to remove: ");
-                    var cartIndex = Convert.ToInt32(Console.ReadLine()) - 1;
+                    int cartIndex = Convert.ToInt32(Console.ReadLine()) - 1;
 
                     if(cartIndex >= 0 && cartIndex < cart.CartEntries.Count)
                     {
@@ -78,7 +78,7 @@ namespace ShoppingCart.App
 
                 Console.WriteLine("===================");
                 int index = 1;
-                var cartEntries = cart.CartEntries;
+                List<CartEntry> cartEntries = cart.CartEntries;
                 foreach (CartEntry entry in cartEntries)
                 {
                     Console.WriteLine($"{index}. {entry.Product.StockKeepingUnit}, Quantity: {entry.Quantity}, Cost: {CartEntryController.GetCost(entry)}");
