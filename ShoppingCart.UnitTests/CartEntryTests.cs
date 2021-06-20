@@ -38,6 +38,7 @@ namespace ShoppingCart.UnitTests
         public void GetCost(int unitPrice, int quantity, int expected)
         {
             /// <given />
+            ICartEntryController cartEntryController = new CartEntryController();
             CartEntry entry = new CartEntry
             {
                 Product = new Product
@@ -50,7 +51,7 @@ namespace ShoppingCart.UnitTests
             /// <when />
 
             /// <then />
-            decimal result = CartEntryController.GetCost(entry);
+            decimal result = cartEntryController.GetCost(entry);
             Assert.Equal(expected, result);
         }
 
@@ -68,6 +69,7 @@ namespace ShoppingCart.UnitTests
         public void GetCostWithPromotion(int unitPrice, int quantity, int promotionCode, int appliedQuantity, int appliedValue, decimal expected)
         {
             /// <given />
+            ICartEntryController cartEntryController = new CartEntryController();
             Promotion promotion = new Promotion
             {
                 Code = promotionCode,
@@ -88,7 +90,7 @@ namespace ShoppingCart.UnitTests
             /// <when />
 
             /// <then />
-            decimal result = CartEntryController.GetCost(entry);
+            decimal result = cartEntryController.GetCost(entry);
             Assert.Equal(expected, result);
         }
     }

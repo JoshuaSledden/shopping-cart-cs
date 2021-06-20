@@ -10,14 +10,16 @@ namespace ShoppingCart.App.Controllers
     public class CartController : ICartController
     {
         private readonly Cart _cart;
+        private readonly ICartEntryController _cartEntryController;
 
         /// <summary>
         /// Instantiates a cart controller class with a pre-existing cart input.
         /// </summary>
         /// <param name="cart"></param>
-        public CartController(Cart cart)
+        public CartController(Cart cart, ICartEntryController cartEntryController)
         {
             _cart = cart;
+            _cartEntryController = cartEntryController;
         }
 
         /// <summary>
@@ -72,7 +74,7 @@ namespace ShoppingCart.App.Controllers
         /// <returns>A decimal representing a total of all cart entries within the cart.</returns>
         public decimal GetTotalCost()
         {
-            return _cart.CartEntries.Select(entry => CartEntryController.GetCost(entry)).Sum();
+            return _cart.CartEntries.Select(entry => _cartEntryController.GetCost(entry)).Sum();
         }
     }
 }

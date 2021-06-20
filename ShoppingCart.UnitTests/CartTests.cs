@@ -12,7 +12,7 @@ namespace ShoppingCart.UnitTests
         public void AddItem()
         {
             /// <given />
-            ICartController cartController = new CartController(new Cart());
+            ICartController cartController = new CartController(new Cart(), new CartEntryController());
 
             Product product = new Product
             {
@@ -38,7 +38,7 @@ namespace ShoppingCart.UnitTests
         public void RemoveItem()
         {
             /// <given />
-            ICartController cartController = new CartController(new Cart());
+            ICartController cartController = new CartController(new Cart(), new CartEntryController());
 
             Product product1 = new Product
             {
@@ -82,7 +82,7 @@ namespace ShoppingCart.UnitTests
         public void ShouldRemoveEntryByIndex()
         {
             /// <given />
-            ICartController cartController = new CartController(new Cart());
+            ICartController cartController = new CartController(new Cart(), new CartEntryController());
 
             Product product1 = new Product
             {
@@ -139,7 +139,7 @@ namespace ShoppingCart.UnitTests
         public void GetTotalCost()
         {
             /// <given />
-            ICartController cartController = new CartController(new Cart());
+            ICartController cartController = new CartController(new Cart(), new CartEntryController());
 
             Product product1 = new Product
             {

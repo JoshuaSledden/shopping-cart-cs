@@ -17,7 +17,8 @@ namespace ShoppingCart.App
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            ICartController cartController = new CartController(new Cart());
+            ICartEntryController cartEntryController = new CartEntryController();
+            ICartController cartController = new CartController(new Cart(), cartEntryController);
             List<Product> products = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText("Data/products.json"));
             Console.WriteLine("Shopping Cart");
             Console.WriteLine("===================");
@@ -79,7 +80,7 @@ namespace ShoppingCart.App
                 List<CartEntry> cartEntries = cartController.GetCartEntries();
                 foreach (CartEntry entry in cartEntries)
                 {
-                    Console.WriteLine($"{index}. {entry.Product.StockKeepingUnit}, Quantity: {entry.Quantity}, Cost: {CartEntryController.GetCost(entry)}");
+                    Console.WriteLine($"{index}. {entry.Product.StockKeepingUnit}, Quantity: {entry.Quantity}, Cost: {cartEntryController.GetCost(entry)}");
                     index++;
                 }
                 Console.WriteLine($"Total Cost: {cartController.GetTotalCost()}");
