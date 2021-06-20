@@ -64,16 +64,9 @@ namespace ShoppingCart.App
                     Console.WriteLine("Select a number to remove: ");
                     int cartIndex = Convert.ToInt32(Console.ReadLine()) - 1;
 
-                    if(cartIndex >= 0 && cartIndex < cart.CartEntries.Count)
-                    {
-                        cart.CartEntries.RemoveAt(cartIndex);
-                        Console.WriteLine("Product Removed!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Product Not Found!");
-                    }
-
+                    bool result = cartController.RemoveEntryByIndex(cartIndex);
+                    string resultString = result ? "Product Removed!" : "Product Not Found!";
+                    Console.WriteLine(resultString);
                 }
                 else if (command.ToString().ToLower() == "remove")
                 {
@@ -83,7 +76,7 @@ namespace ShoppingCart.App
 
                 Console.WriteLine("===================");
                 int index = 1;
-                List<CartEntry> cartEntries = cart.CartEntries;
+                List<CartEntry> cartEntries = cartController.GetCartEntries();
                 foreach (CartEntry entry in cartEntries)
                 {
                     Console.WriteLine($"{index}. {entry.Product.StockKeepingUnit}, Quantity: {entry.Quantity}, Cost: {CartEntryController.GetCost(entry)}");

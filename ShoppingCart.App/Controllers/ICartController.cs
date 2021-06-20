@@ -27,6 +27,19 @@ namespace ShoppingCart.App.Controllers
         void RemoveEntry(CartEntry cartEntry);
 
         /// <summary>
+        /// Removes a cart entry in an existing card via a provided index.
+        /// </summary>
+        /// <param name="index">The index in which we want to remove.</param>
+        /// <returns>A bool representing the success state of removing an entry.</returns>
+        bool RemoveEntryByIndex(int index);
+
+        /// <summary>
+        /// Gets the cart entries within this given cart.
+        /// </summary>
+        /// <returns>A list representing the entry objects within the cart.</returns>
+        List<CartEntry> GetCartEntries();
+
+        /// <summary>
         /// Gets the total cost value of all items within a cart.
         /// </summary>
         /// <param name="cart">An object representing a cart.</param>

@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using ShoppingCart.App.Models;
 using ShoppingCart.App.Controllers;
+using System.Collections.Generic;
 
 namespace ShoppingCart.UnitTests
 {
@@ -28,7 +29,8 @@ namespace ShoppingCart.UnitTests
             cartController.AddEntry(cartEntry);
 
             /// <then />
-            int result = cart.CartEntries.Count;
+            List<CartEntry> cartEntries = cartController.GetCartEntries();
+            int result = cartEntries.Count;
             Assert.Equal(1, result);
         }
 
@@ -36,8 +38,7 @@ namespace ShoppingCart.UnitTests
         public void RemoveItem()
         {
             /// <given />
-            Cart cart = new Cart();
-            ICartController cartController = new CartController(cart);
+            ICartController cartController = new CartController(new Cart());
 
             Product product1 = new Product
             {
@@ -70,10 +71,68 @@ namespace ShoppingCart.UnitTests
             cartController.RemoveEntry(entry1);
 
             /// <then />
-            int resultCount = cart.CartEntries.Count;
-            CartEntry resultEntry = cart.CartEntries[0];
+            List<CartEntry> cartEntries = cartController.GetCartEntries();
+            int resultCount = cartEntries.Count;
+            CartEntry resultEntry = cartEntries[0];
             Assert.Equal(1, resultCount);
             Assert.Equal("B", resultEntry.Product.StockKeepingUnit);
+        }
+
+        [Fact]
+        public void ShouldRemoveEntryByIndex()
+        {
+            /// <given />
+            ICartController cartController = new CartController(new Cart());
+
+            Product product1 = new Product
+            {
+                StockKeepingUnit = "A",
+                UnitPrice = 10
+            };
+
+            Product product2 = new Product
+            {
+                StockKeepingUnit = "B",
+                UnitPrice = 15
+            };
+
+            Product product3 = new Product
+            {
+                StockKeepingUnit = "C",
+                UnitPrice = 25
+            };
+
+            CartEntry entry1 = new CartEntry
+            {
+                Product = product1,
+                Quantity = 1
+            };
+
+            CartEntry entry2 = new CartEntry
+            {
+                Product = product2,
+                Quantity = 1
+            };
+
+            CartEntry entry3 = new CartEntry
+            {
+                Product = product3,
+                Quantity = 1
+            };
+
+            cartController.AddEntry(entry1);
+            cartController.AddEntry(entry2);
+            cartController.AddEntry(entry3);
+
+            /// <when />
+            cartController.RemoveEntryByIndex(1);
+
+            /// <then />
+            List<CartEntry> cartEntries = cartController.GetCartEntries();
+            int resultCount = cartEntries.Count;
+            Assert.Equal(2, resultCount);
+            Assert.Equal("A", cartEntries[0].Product.StockKeepingUnit);
+            Assert.Equal("C", cartEntries[1].Product.StockKeepingUnit);
         }
 
         [Fact]

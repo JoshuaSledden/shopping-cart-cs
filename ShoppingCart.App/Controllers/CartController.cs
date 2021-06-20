@@ -1,4 +1,5 @@
 using ShoppingCart.App.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ShoppingCart.App.Controllers
@@ -30,13 +31,38 @@ namespace ShoppingCart.App.Controllers
         }
 
         /// <summary>
-        /// Removes a cart entry in to an existing cart.
+        /// Removes a cart entry in an existing cart.
         /// </summary>
         /// <param name="cart">An object representing a cart.</param>
         /// <param name="cartEntry">An object representing a cart entry.</param>
         public void RemoveEntry(CartEntry cartEntry)
         {
             _cart.CartEntries.Remove(cartEntry);
+        }
+
+        /// <summary>
+        /// Removes a cart entry in an existing card via a provided index.
+        /// </summary>
+        /// <param name="index">The index in which we want to remove.</param>
+        /// <returns>A bool representing the success state of removing an entry.</returns>
+        public bool RemoveEntryByIndex(int index)
+        {
+            if (index >= 0 && index < _cart.CartEntries.Count)
+            {
+                _cart.CartEntries.RemoveAt(index);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the cart entries within this given cart.
+        /// </summary>
+        /// <returns>A list representing the entry objects within the cart.</returns>
+        public List<CartEntry> GetCartEntries()
+        {
+            return _cart.CartEntries;
         }
 
         /// <summary>
