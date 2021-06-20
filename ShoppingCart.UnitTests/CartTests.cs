@@ -9,7 +9,23 @@ namespace ShoppingCart.UnitTests
     public class CartTests
     {
         [Fact]
-        public void AddItem()
+        public void ShouldBeEmptyWhenFirstInitialized()
+        {
+            /// <given />
+            ICartController cartController = new CartController(new Cart(), new CartEntryController());
+
+            /// <when />
+
+            /// <then />
+            List<CartEntry> cartEntries = cartController.GetCartEntries();
+            int resultCount = cartEntries.Count;
+            decimal resultCost = cartController.GetTotalCost();
+            Assert.Equal(0, resultCount);
+            Assert.Equal(0.0M, resultCost);
+        }
+
+        [Fact]
+        public void ShouldAddEntryToCart()
         {
             /// <given />
             ICartController cartController = new CartController(new Cart(), new CartEntryController());
@@ -35,7 +51,7 @@ namespace ShoppingCart.UnitTests
         }
 
         [Fact]
-        public void RemoveItem()
+        public void ShouldRemoveEntryFromCart()
         {
             /// <given />
             ICartController cartController = new CartController(new Cart(), new CartEntryController());
@@ -79,7 +95,7 @@ namespace ShoppingCart.UnitTests
         }
 
         [Fact]
-        public void ShouldRemoveEntryByIndex()
+        public void ShouldRemoveEntryFromCartByIndex()
         {
             /// <given />
             ICartController cartController = new CartController(new Cart(), new CartEntryController());
@@ -136,7 +152,7 @@ namespace ShoppingCart.UnitTests
         }
 
         [Fact]
-        public void GetTotalCost()
+        public void ShouldGetTotalCostOfCart()
         {
             /// <given />
             ICartController cartController = new CartController(new Cart(), new CartEntryController());

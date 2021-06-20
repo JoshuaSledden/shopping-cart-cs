@@ -9,7 +9,7 @@ namespace ShoppingCart.UnitTests
     public class CartEntryTests
     {
         [Fact]
-        public void Quantity()
+        public void ShouldGetCartEntryQuantity()
         {
             /// <given />
             CartEntry entry = new CartEntry
@@ -35,7 +35,7 @@ namespace ShoppingCart.UnitTests
         [InlineData(15, 3, 45)]
         [InlineData(100, 3, 300)]
         [InlineData(0, 5, 0)]
-        public void GetCost(int unitPrice, int quantity, int expected)
+        public void ShouldGetTotalCartEntryCost(int unitPrice, int quantity, int expected)
         {
             /// <given />
             ICartEntryController cartEntryController = new CartEntryController();
@@ -66,7 +66,7 @@ namespace ShoppingCart.UnitTests
         [InlineData(55, 3, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 137.5)]
         [InlineData(55, 4, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 165)]
         [InlineData(55, 5, (int)PromotionCodes.Types.X_PERCENT_OFF_EVERY_Y_ITEMS, 2, 25, 220)]
-        public void GetCostWithPromotion(int unitPrice, int quantity, int promotionCode, int appliedQuantity, int appliedValue, decimal expected)
+        public void ShouldGetCartEntryCostWithPromotionsApplied(int unitPrice, int quantity, int promotionCode, int appliedQuantity, int appliedValue, decimal expected)
         {
             /// <given />
             ICartEntryController cartEntryController = new CartEntryController();
