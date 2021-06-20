@@ -10,9 +10,14 @@ namespace ShoppingCart.App
 {
     class Program
     {
+        /// <summary>
+        /// Runs the application.
+        /// Created a simple console navigation to interact with the code outside of unit testing.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Cart cart = new Cart();
+            ICartController cartController = new CartController(new Cart());
             List<Product> products = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText("Data/products.json"));
             Console.WriteLine("Shopping Cart");
             Console.WriteLine("===================");
@@ -46,7 +51,7 @@ namespace ShoppingCart.App
                             Quantity = quantity
                         };
 
-                        CartController.AddEntry(cart, cartEntry);
+                        cartController.AddEntry(cartEntry);
                         Console.WriteLine("Product Added!");
                     }
                     else
@@ -84,7 +89,7 @@ namespace ShoppingCart.App
                     Console.WriteLine($"{index}. {entry.Product.StockKeepingUnit}, Quantity: {entry.Quantity}, Cost: {CartEntryController.GetCost(entry)}");
                     index++;
                 }
-                Console.WriteLine($"Total Cost: {CartController.GetTotalCost(cart)}");
+                Console.WriteLine($"Total Cost: {cartController.GetTotalCost()}");
                 Console.WriteLine("===================");
             }
         }

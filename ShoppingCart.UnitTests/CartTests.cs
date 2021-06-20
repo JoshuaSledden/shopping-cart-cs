@@ -11,7 +11,7 @@ namespace ShoppingCart.UnitTests
         public void AddItem()
         {
             /// <given />
-            Cart cart = new Cart();
+            ICartController cartController = new CartController(new Cart());
 
             Product product = new Product
             {
@@ -25,10 +25,10 @@ namespace ShoppingCart.UnitTests
             };
 
             /// <when />
-            CartController.AddEntry(cart, cartEntry);
+            cartController.AddEntry(cartEntry);
 
             /// <then />
-            var result = cart.CartEntries.Count;
+            int result = cart.CartEntries.Count;
             Assert.Equal(1, result);
         }
 
@@ -37,6 +37,7 @@ namespace ShoppingCart.UnitTests
         {
             /// <given />
             Cart cart = new Cart();
+            ICartController cartController = new CartController(cart);
 
             Product product1 = new Product
             {
@@ -62,15 +63,15 @@ namespace ShoppingCart.UnitTests
                 Quantity = 1
             };
 
-            CartController.AddEntry(cart, entry1);
-            CartController.AddEntry(cart, entry2);
+            cartController.AddEntry(entry1);
+            cartController.AddEntry(entry2);
 
             /// <when />
-            CartController.RemoveEntry(cart, entry1);
+            cartController.RemoveEntry(entry1);
 
             /// <then />
-            var resultCount = cart.CartEntries.Count;
-            var resultEntry = cart.CartEntries[0];
+            int resultCount = cart.CartEntries.Count;
+            CartEntry resultEntry = cart.CartEntries[0];
             Assert.Equal(1, resultCount);
             Assert.Equal("B", resultEntry.Product.StockKeepingUnit);
         }
@@ -79,7 +80,7 @@ namespace ShoppingCart.UnitTests
         public void GetTotalCost()
         {
             /// <given />
-            Cart cart = new Cart();
+            ICartController cartController = new CartController(new Cart());
 
             Product product1 = new Product
             {
@@ -104,11 +105,11 @@ namespace ShoppingCart.UnitTests
             };
 
             /// <when />
-            CartController.AddEntry(cart, entry1);
-            CartController.AddEntry(cart, entry2);
+            cartController.AddEntry(entry1);
+            cartController.AddEntry(entry2);
 
             /// <then />
-            var resultCost = CartController.GetTotalCost(cart);
+            decimal resultCost = cartController.GetTotalCost();
             Assert.Equal(40.0M, resultCost);
         }
     }
